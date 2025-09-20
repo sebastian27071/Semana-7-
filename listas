@@ -1,0 +1,164 @@
+/**
+ *
+ * @author SEBASTIAN
+ */
+class Listas {
+    Nodo cabeza;
+    
+    public void insertarCabeza(int dato) {
+        if (cabeza == null) {
+            cabeza = new Nodo(dato);
+        } else {
+            Nodo nuevo = new Nodo(dato);
+            nuevo.siguiente = cabeza;
+            cabeza = nuevo;
+        }
+    }
+    
+    public void insertarFinal(int dato) {
+        Nodo nuevo = new Nodo(dato);
+        
+        if (cabeza == null) {
+            cabeza = nuevo;
+        } else {
+            Nodo p = cabeza;
+            while (p.siguiente != null) {
+                p = p.siguiente;
+            }
+            p.siguiente = nuevo;
+        }
+    }
+   
+    public boolean insertarEnPosicion(int dato, int posicion) {
+        if (posicion < 0) return false;
+        
+        if (posicion == 0) {
+            insertarCabeza(dato);
+            return true;
+        }
+        
+        Nodo nuevo = new Nodo(dato);
+        Nodo p = cabeza;
+        
+        for (int i = 0; i < posicion - 1 && p != null; i++) {
+            p = p.siguiente;
+        }
+        
+        if (p == null) return false; 
+        
+        nuevo.siguiente = p.siguiente;
+        p.siguiente = nuevo;
+        return true;
+    }
+    
+   
+    public boolean eliminarPrimero() {
+        if (cabeza == null) return false;
+        
+        cabeza = cabeza.siguiente;
+        return true;
+    }
+    
+   
+    public boolean eliminarUltimo() {
+        if (cabeza == null) return false;
+        
+        if (cabeza.siguiente == null) {
+            cabeza = null;
+            return true;
+        }
+        
+        Nodo p = cabeza;
+        while (p.siguiente.siguiente != null) {
+            p = p.siguiente;
+        }
+        p.siguiente = null;
+        return true;
+    }
+    
+  
+    public boolean eliminarEnPosicion(int posicion) {
+        if (posicion < 0 || cabeza == null) return false;
+        
+        if (posicion == 0) {
+            return eliminarPrimero();
+        }
+        
+        Nodo p = cabeza;
+        
+      
+        for (int i = 0; i < posicion - 1 && p.siguiente != null; i++) {
+            p = p.siguiente;
+        }
+        
+        if (p.siguiente == null) return false; 
+        
+        p.siguiente = p.siguiente.siguiente;
+        return true;
+    }
+    
+   
+    public boolean eliminarPorValor(int valor) {
+        if (cabeza == null) return false;
+        
+        if (cabeza.contenido == valor) {
+            cabeza = cabeza.siguiente;
+            return true;
+        }
+        
+        Nodo p = cabeza;
+        while (p.siguiente != null && p.siguiente.contenido != valor) {
+            p = p.siguiente;
+        }
+        
+        if (p.siguiente == null) return false;
+        
+        p.siguiente = p.siguiente.siguiente;
+        return true;
+    }
+    
+   
+    public void mostrarLista() {
+        if (cabeza == null) {
+            System.out.println("La lista está vacía.");
+            return;
+        }
+        
+        Nodo p = cabeza;
+        System.out.print("Lista: ");
+        while (p != null) {
+            System.out.print(p.contenido);
+            if (p.siguiente != null) {
+                System.out.print(" -> ");
+            }
+            p = p.siguiente;
+        }
+        System.out.println(" -> null");
+    }
+    
+  
+    public int contarNodos() {
+        int contador = 0;
+        Nodo p = cabeza;
+        while (p != null) {
+            contador++;
+            p = p.siguiente;
+        }
+        return contador;
+    }
+    
+  
+    public int buscarValor(int valor) {
+        Nodo p = cabeza;
+        int posicion = 0;
+        
+        while (p != null) {
+            if (p.contenido == valor) {
+                return posicion;
+            }
+            p = p.siguiente;
+            posicion++;
+        }
+        return -1; 
+    }
+}
