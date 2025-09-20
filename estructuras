@@ -1,0 +1,111 @@
+/**
+ *
+ * @author SEBASTIAN
+ */
+import java.util.Scanner;
+
+public class Estructuras {
+    public static void main(String[] args) {
+        Listas lista = new Listas();
+        Scanner entrada = new Scanner(System.in);
+        int opcion, valor, posicion;
+        
+        do {
+            System.out.println("\n\n\t\t=== MENU DE OPCIONES ===");
+            System.out.println("\t1. Insertar nodo al principio");
+            System.out.println("\t2. Insertar nodo al final");
+            System.out.println("\t3. Insertar nodo en posicion especifica");
+            System.out.println("\t4. Eliminar nodo del principio");
+            System.out.println("\t5. Eliminar nodo del final");
+            System.out.println("\t6. Eliminar nodo en posicion especifica");
+            System.out.println("\t7. Eliminar nodo por valor");
+            System.out.println("\t8. Mostrar lista");
+            System.out.println("\t9. Contar nodos");
+            System.out.println("\t10. Buscar valor");
+            System.out.println("\t11. Salir");
+            System.out.print("\n\tOpción: ");
+            opcion = entrada.nextInt();
+            
+            switch (opcion) {
+                case 1 -> {
+                    System.out.print("Ingrese valor del nodo a insertar al principio: ");
+                    valor = entrada.nextInt();
+                    lista.insertarCabeza(valor);
+                    System.out.println("Nodo insertado correctamente.");
+                }
+                case 2 -> {
+                    System.out.print("Ingrese valor del nodo a insertar al final: ");
+                    valor = entrada.nextInt();
+                    lista.insertarFinal(valor);
+                    System.out.println("Nodo insertado correctamente.");
+                }
+                case 3 -> {
+                    System.out.print("Ingrese valor del nodo: ");
+                    valor = entrada.nextInt();
+                    System.out.print("Ingrese posición (0 = principio): ");
+                    posicion = entrada.nextInt();
+                    if (lista.insertarEnPosicion(valor, posicion)) {
+                        System.out.println("Nodo insertado correctamente.");
+                    } else {
+                        System.out.println("Posición inválida.");
+                    }
+                }
+                case 4 -> {
+                    if (lista.eliminarPrimero()) {
+                        System.out.println("Primer nodo eliminado correctamente.");
+                    } else {
+                        System.out.println("La lista está vacía.");
+                    }
+                }
+                case 5 -> {
+                    if (lista.eliminarUltimo()) {
+                        System.out.println("Último nodo eliminado correctamente.");
+                    } else {
+                        System.out.println("La lista está vacía.");
+                    }
+                }
+                case 6 -> {
+                    System.out.print("Ingrese posición a eliminar (0 = principio): ");
+                    posicion = entrada.nextInt();
+                    if (lista.eliminarEnPosicion(posicion)) {
+                        System.out.println("Nodo eliminado correctamente.");
+                    } else {
+                        System.out.println("Posición inválida o lista vacía.");
+                    }
+                }
+                case 7 -> {
+                    System.out.print("Ingrese valor del nodo a eliminar: ");
+                    valor = entrada.nextInt();
+                    if (lista.eliminarPorValor(valor)) {
+                        System.out.println("Nodo eliminado correctamente.");
+                    } else {
+                        System.out.println("Valor no encontrado en la lista.");
+                    }
+                }
+                case 8 -> {
+                    System.out.println("Lista actual:");
+                    lista.mostrarLista();
+                }
+                case 9 -> {
+                    int cantidad = lista.contarNodos();
+                    System.out.println("La lista tiene " + cantidad + " nodos.");
+                }
+                case 10 -> {
+                    System.out.print("Ingrese valor a buscar: ");
+                    valor = entrada.nextInt();
+                    int pos = lista.buscarValor(valor);
+                    if (pos != -1) {
+                        System.out.println("Valor encontrado en la posición: " + pos);
+                    } else {
+                        System.out.println("Valor no encontrado.");
+                    }
+                }
+                case 11 -> System.out.println("Saliendo del programa...");
+                default -> System.out.println("Opción inválida. Intente nuevamente.");
+            }
+        } while (opcion != 11);
+        
+        entrada.close();
+        System.out.println("Fin del programa");
+    }
+}
